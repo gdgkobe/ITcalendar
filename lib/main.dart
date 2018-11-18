@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekDay;
 
 
 
@@ -31,17 +31,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      child: CalendarCarousel(
-        onDayPressed: (DateTime date) {
-          this.setState(() => _currentDate = date);
-        },
-        thisMonthDayBorderColor: Colors.grey,
-        height: 420.0,
-        selectedDateTime: _currentDate,
-        daysHaveCircularBorder: null,
-        markedDatesMap: _markedDateMap,
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('ITカレンダー'),
+      ),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16.0),
+        child: CalendarCarousel(
+          onDayPressed: (DateTime date) {
+            this.setState(() => _currentDate = date);
+          },
+          weekendTextStyle: TextStyle(color: Colors.red),
+          thisMonthDayBorderColor: Colors.grey,
+          weekFormat: false,
+          weekends: [WeekDay.Sunday, WeekDay.Saturday],
+          markedDatesMap: _markedDateMap,
+          height: 420.0,
+          selectedDateTime: _currentDate,
+          daysHaveCircularBorder: null,
+        ),
       ),
     );
   }
