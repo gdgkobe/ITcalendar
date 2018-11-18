@@ -1,8 +1,8 @@
-import 'package:it_calendar/domain/model/Event.dart';
+import 'package:it_calendar/domain/model/EventList.dart';
 import 'package:it_calendar/infrastructure/datasource/ConnpassDataSource.dart';
 
-class FetchDetailEventUseCase {
+class FetchEventListUseCase {
   ConnpassDataSource _connpassDataSource = ConnpassDataSource();
 
-  Future<Event> execute(Event event) => _connpassDataSource.fetchEvent(event.eventId);
+  Future<EventList> execute() => _connpassDataSource.fetchEventList();
 }

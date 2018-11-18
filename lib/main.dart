@@ -3,10 +3,14 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show C
 import 'package:it_calendar/FAB.dart';
 import 'package:it_calendar/List.dart';
 import 'package:it_calendar/it_calendar_map.dart';
+import 'package:it_calendar/domain/model/Event.dart';
+import 'package:it_calendar/domain/model/EventList.dart';
+import 'package:it_calendar/domain/usecase/FetchEventListUseCase.dart';
 
 void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -23,10 +27,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   DateTime _currentDate = DateTime.now();
   List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-  Map<DateTime, int> _markedDateMap = {
-    DateTime(2018, 11, 18) : 2,
-    DateTime(2018, 11, 19) : 1,
-  };
+  Map<DateTime, int> _markedDateMap = {};
+//  Map<DateTime, int> _markedDateMap = {
+//    DateTime(2018, 11, 18) : 2,
+//    DateTime(2018, 11, 19) : 1,
+//  };
+  EventList eventList;
+
+
+  @override
+  void initState() {
+    super.initState();
+    setup();
+  }
+
+  void setup() async {
+    FetchEventListUseCase fetchEventListUseCase = FetchEventListUseCase();
+    eventList = await fetchEventListUseCase.execute();
+    var translatedEventList = Map.fromIterable(eventList.events,
+        key: (event) => event.startedAt,
+        value: (event) => getEventCount(event));
+
+    setState(() {
+      _markedDateMap = translatedEventList;
+    });
+  }
+
+  int getEventCount(Event event) {
+    return eventList.events
+        .where((eventStartedAt) => eventStartedAt.startedAt == event.startedAt)
+        .length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   navigateListScreen(){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ListScreen()),
+      MaterialPageRoute(builder: (context) => ListScreen(eventList: eventList)),
     );
   }
 
