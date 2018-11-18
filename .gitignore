@@ -8,4 +8,5 @@ build/
 
 .flutter-plugins
 
+android/apikey.properties
 .idea/
