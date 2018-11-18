@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:it_calendar/domain/model/Event.dart';
 import 'package:map_view/map_view.dart';
@@ -27,6 +29,7 @@ class ITCalendarMap {
   Location get location => _userLocation;
   Location _userLocation;
 
+  var compositeSubscription = new CompositeSubscription();
   List<Marker> _markers = [];
 
   /// Map表示
@@ -37,6 +40,8 @@ class ITCalendarMap {
           hideToolbar: false,
           showMyLocationButton: true,
           showCompassButton: true,
+          initialCameraPosition:
+              new CameraPosition(new Location(34.7039714, 135.4949975), 14.0),
         ),
         toolbarActions: [new ToolbarAction("Close", 1)]);
     _mapView.onToolbarAction.listen((id) {
@@ -66,8 +71,31 @@ class ITCalendarMap {
         _mapView.setCameraPosition(new CameraPosition(
             new Location(_userLocation.latitude, _userLocation.longitude),
             14.0));
+        print(
+            "latitude:${_userLocation.latitude}, longitude:${_userLocation.longitude}");
       }
     });
+
+    _setMarker(Event(
+        eventId: 1,
+        title: "Umeda.hack",
+        latitude: 34.6991342,
+        longitude: 135.4952183));
+    _setMarker(Event(
+        eventId: 2,
+        title: "CodeLab HepFive",
+        latitude: 34.7040623,
+        longitude: 135.5002964));
+    _setMarker(Event(
+        eventId: 3,
+        title: "MBS MokuMoku",
+        latitude: 34.7049389,
+        longitude: 135.4959288));
+
+    StreamSubscription sub = _mapView.onMapReady.listen((_) {
+      _mapView.setMarkers(_markers);
+    });
+    compositeSubscription.add(sub);
   }
 
   _setMarker(Event event) {
@@ -77,9 +105,40 @@ class ITCalendarMap {
         event.title,
         event.latitude,
         event.longitude,
-        color: Colors.blue,
+        color: Colors.pink,
         draggable: false, //disallow the user to move the marker.
       ),
     );
+  }
+}
+
+class CompositeSubscription {
+  Set<StreamSubscription> _subscriptions = new Set();
+
+  void cancel() {
+    for (var n in this._subscriptions) {
+      n.cancel();
+    }
+    this._subscriptions = new Set();
+  }
+
+  void add(StreamSubscription subscription) {
+    this._subscriptions.add(subscription);
+  }
+
+  void addAll(Iterable<StreamSubscription> subs) {
+    _subscriptions.addAll(subs);
+  }
+
+  bool remove(StreamSubscription subscription) {
+    return this._subscriptions.remove(subscription);
+  }
+
+  bool contains(StreamSubscription subscription) {
+    return this._subscriptions.contains(subscription);
+  }
+
+  List<StreamSubscription> toList() {
+    return this._subscriptions.toList();
   }
 }
