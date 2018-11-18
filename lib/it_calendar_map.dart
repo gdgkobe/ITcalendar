@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:it_calendar/domain/model/Event.dart';
 import 'package:map_view/map_view.dart';
 
 class ITCalendarMap {
@@ -25,6 +27,8 @@ class ITCalendarMap {
   Location get location => _userLocation;
   Location _userLocation;
 
+  List<Marker> _markers = [];
+
   /// Map表示
   showMap() {
     _mapView.show(
@@ -48,6 +52,12 @@ class ITCalendarMap {
             new Location(_userLocation.latitude, _userLocation.longitude),
             14.0));
       }
+      _mapView.setMarkers(_markers);
+      _setMarker(Event(
+          eventId: 10,
+          title: "test title",
+          latitude: _userLocation.latitude,
+          longitude: _userLocation.longitude));
     });
 
     _mapView.onLocationUpdated.listen((location) {
@@ -58,5 +68,18 @@ class ITCalendarMap {
             14.0));
       }
     });
+  }
+
+  _setMarker(Event event) {
+    _markers.add(
+      new Marker(
+        event.eventId.toString(),
+        event.title,
+        event.latitude,
+        event.longitude,
+        color: Colors.blue,
+        draggable: false, //disallow the user to move the marker.
+      ),
+    );
   }
 }
