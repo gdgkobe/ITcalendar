@@ -18,8 +18,8 @@ EventEntity _$EventEntityFromJson(Map<String, dynamic> json) {
       json['ended_at'] == null
           ? null
           : DateTime.parse(json['ended_at'] as String),
-      (json['lat'] as num)?.toDouble(),
-      (json['lon'] as num)?.toDouble());
+      json['lat'] as String,
+      json['lon'] as String);
 }
 
 Map<String, dynamic> _$EventEntityToJson(EventEntity instance) =>
