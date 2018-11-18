@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatefulWidget {
+class ListScreen extends StatefulWidget {
   @override
-  _SScreen createState() => new _SScreen();
+  _LScreen createState() => new _LScreen();
 }
 
-class _SScreen extends State<SearchScreen> {
+class _LScreen extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("野田さんの位置"),
+        title: Text("川本さんのリスト"),
       ),
       body: Center(
 

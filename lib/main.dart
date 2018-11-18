@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekDay;
+import 'package:it_calendar/FAB.dart';
+import 'package:it_calendar/List.dart';
 
 void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
@@ -18,7 +20,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _currentDate = DateTime(2018, 8, 1);
+  DateTime _currentDate = DateTime.now();
   List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
   Map<DateTime, int> _markedDateMap = {
     DateTime(2018, 11, 18) : 2,
@@ -35,15 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
         margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel(
           onDayPressed: (DateTime date) {
-            this.setState(() => _currentDate = date);
             print("datepressed");
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SecondScreen()),
-            );
+            ListScreen(context);
           },
-          weekendTextStyle: TextStyle(color: Colors.red),
-          thisMonthDayBorderColor: Colors.grey,
+          selectedDayBorderColor: Colors.amber,
+          iconColor: Colors.black,
           weekFormat: false,
           weekends: [WeekDay.Sunday, WeekDay.Saturday],
           markedDatesMap: _markedDateMap,
@@ -52,20 +50,21 @@ class _MyHomePageState extends State<MyHomePage> {
           daysHaveCircularBorder: null,
         ),
       ),
+      floatingActionButton: new FloatingActionButton(child: Icon(Icons.search), onPressed:SearchScreen(context),)
     );
   }
-}
 
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Second Screen"),
-      ),
-      body: Center(
+  ListScreen(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ListScreen(context)),
+    );
+  }
 
-      ),
+  SearchScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SearchScreen(context)),
     );
   }
 }
