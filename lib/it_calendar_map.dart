@@ -20,9 +20,10 @@ class ITCalendarMap {
     MapView.setApiKey(apikey);
   }
 
+  var _mapView = MapView();
+
   /// Map表示
   showMap() {
-    var _mapView = MapView();
     _mapView.show(
         new MapOptions(
           showUserLocation: true,
@@ -34,6 +35,24 @@ class ITCalendarMap {
     _mapView.onToolbarAction.listen((id) {
       if (id == 1) {
         _mapView.dismiss();
+      }
+    });
+
+    Location userLocation;
+
+    // _showMapメソッドの最後に以下の処理を追加
+    _mapView.onMapReady.listen((_) {
+      if (userLocation != null) {
+        _mapView.setCameraPosition(new CameraPosition(
+            new Location(userLocation.latitude, userLocation.longitude), 14.0));
+      }
+    });
+
+    _mapView.onLocationUpdated.listen((location) {
+      if (userLocation == null) {
+        userLocation = location;
+        _mapView.setCameraPosition(new CameraPosition(
+            new Location(userLocation.latitude, userLocation.longitude), 14.0));
       }
     });
   }
