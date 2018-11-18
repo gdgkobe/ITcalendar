@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:it_calendar/domain/model/Event.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class EventDetailPage extends StatefulWidget {
   EventDetailPage({Key key, this.title, this.event}) : super(key: key);
 
@@ -24,7 +23,6 @@ class EventDetailPage extends StatefulWidget {
 }
 
 class _EventDetailPageState extends State<EventDetailPage> {
-
   Future<Null> _openLink() async {
     if (await canLaunch(widget.event.eventUrl)) {
       await launch(widget.event.eventUrl);
@@ -41,20 +39,20 @@ class _EventDetailPageState extends State<EventDetailPage> {
       ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget> [
+          return <Widget>[
             SliverAppBar(
               expandedHeight: 200.0,
               floating: false,
               pinned: true,
               backgroundColor: Colors.transparent,
-              
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title: Text(widget.event.title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                ),
+                title: Text(
+                  widget.event.title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
                 ),
                 background: Image.network(
                   "https://connpass.com/static/img/common/sitelogo_295x100.png",
@@ -66,10 +64,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
           ];
         },
         body: SingleChildScrollView(
-          child: Center(
-            child: Text(widget.event.description,
-              style: TextStyle(
-                fontSize: 20.0,
+          child: Container(
+            padding: const EdgeInsets.all(32.0),
+            child: Center(
+              child: Text(
+                widget.event.description,
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
               ),
             ),
           ),
@@ -77,8 +79,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => setState(() {
-          _openLink();
-        }),
+              _openLink();
+            }),
         tooltip: 'Increment',
         child: Icon(Icons.search),
       ), // This trailing comma makes auto-formatting nicer for build methods.
