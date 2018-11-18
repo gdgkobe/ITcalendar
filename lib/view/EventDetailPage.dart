@@ -71,11 +71,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
           ];
         },
         body: SingleChildScrollView(
-          child: Center(
-            child: Text(
-              widget.event.description,
-              style: TextStyle(
-                fontSize: 20.0,
+          child: Container(
+            padding: const EdgeInsets.all(32.0),
+            child: Center(
+              child: Text(
+                widget.event.description,
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
               ),
             ),
           ),
