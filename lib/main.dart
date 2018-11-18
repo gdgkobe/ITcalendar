@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: CalendarCarousel(
           onDayPressed: (DateTime date) {
             print("datepressed");
-            ListScreen(context);
+            navigateListScreen();
           },
           selectedDayBorderColor: Colors.amber,
           iconColor: Colors.black,
@@ -50,21 +50,21 @@ class _MyHomePageState extends State<MyHomePage> {
           daysHaveCircularBorder: null,
         ),
       ),
-      floatingActionButton: new FloatingActionButton(child: Icon(Icons.search), onPressed: () => SearchScreen(context),)
+      floatingActionButton: new FloatingActionButton(child: Icon(Icons.search), onPressed: () => navigateSearchScreen(),)
     );
   }
 
-  ListScreen(BuildContext context){
+  navigateListScreen(){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ListScreen(context)),
+      MaterialPageRoute(builder: (context) => ListScreen()),
     );
   }
 
-  SearchScreen(BuildContext context) {
+  navigateSearchScreen() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SearchScreen(context)),
+      MaterialPageRoute(builder: (context) => SearchScreen()),
     );
   }
 }
