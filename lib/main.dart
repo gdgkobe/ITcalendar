@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           daysHaveCircularBorder: null,
         ),
       ),
-      floatingActionButton: new FloatingActionButton(child: Icon(Icons.search), onPressed:SearchScreen(context),)
+      floatingActionButton: new FloatingActionButton(child: Icon(Icons.search), onPressed: () => SearchScreen(context),)
     );
   }
 
