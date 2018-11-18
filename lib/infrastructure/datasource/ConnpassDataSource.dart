@@ -8,7 +8,7 @@ import 'package:it_calendar/infrastructure/entity/ResultConnpassEntity.dart';
 class ConnpassDataSource {
   static String url = "https://connpass.com/api/v1/event/";
 
-  EventTranslator _eventTranslator = EventTranslator()
+  EventTranslator _eventTranslator = EventTranslator();
 
   Future<EventList> fetchEventList() {
     var client = http.Client();
