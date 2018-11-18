@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekDay;
 import 'package:it_calendar/FAB.dart';
 import 'package:it_calendar/List.dart';
+import 'package:it_calendar/it_calendar_map.dart';
 
 void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
@@ -62,9 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   navigateSearchScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SearchScreen()),
-    );
+    ITCalendarMap.instance.showMap();
   }
 }
