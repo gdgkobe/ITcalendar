@@ -17,9 +17,9 @@ class EventEntity {
   @JsonKey(name: 'ended_at', nullable: true)
   final DateTime endedAt;
   @JsonKey(name: 'lat', nullable: true)
-  final double latitude;
+  final String latitude;
   @JsonKey(name: 'lon', nullable: true)
-  final double longitude;
+  final String longitude;
 
 
   EventEntity(this.eventId, this.title, this.description, this.eventUrl,
