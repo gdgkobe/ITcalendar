@@ -34,6 +34,8 @@ class ITCalendarMap {
 
   /// Map表示
   showMap() {
+    _markers.clear();
+
     _mapView.show(
         new MapOptions(
           showUserLocation: true,
