@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:it_calendar/domain/model/Event.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class EventDetailPage extends StatefulWidget {
   EventDetailPage({Key key, this.title, this.event}) : super(key: key);
@@ -22,8 +26,10 @@ class EventDetailPage extends StatefulWidget {
 
 class _EventDetailPageState extends State<EventDetailPage> {
 
-  void _openLink() {
-    // TODO: リンク開く
+  Future<Null> _openLink() async {
+    if (await canLaunch(widget.event.eventUrl)) {
+      await launch(widget.event.eventUrl);
+    }
   }
 
   @override
@@ -63,7 +69,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   color: Color.fromRGBO(163, 51, 24, 1.0),
                 ),
               ),
-            )
+            ),
           ];
         },
         body: SingleChildScrollView(
@@ -77,7 +83,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _openLink,
+        onPressed: () => setState(() {
+          _openLink();
+        }),
         tooltip: 'Increment',
         child: Icon(Icons.search),
       ), // This trailing comma makes auto-formatting nicer for build methods.
