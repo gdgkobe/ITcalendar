@@ -52,7 +52,7 @@ class _LScreen extends State<ListScreen> {
       ),
       // isDisplayの使い方参考
       //trailing: widget.user.paidPlan.isDisplayAd ? Text('Ad') : Text('no'),
-      onTap: () => _onTapEventListItem,
+      onTap: () => _onTapEventListItem(event),
     );
   }
 
