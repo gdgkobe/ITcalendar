@@ -6,10 +6,10 @@ part 'EventListEntity.g.dart';
 @JsonSerializable()
 class EventListEntity {
   @JsonKey(name: 'events')
-  final List<EventEntity> eventList;
+  final List<EventEntity> events;
 
 
-  EventListEntity({this.eventList});
+  EventListEntity({this.events});
 
   factory EventListEntity.fromJson(Map<String, dynamic> json) =>
       _$EventListEntityFromJson(json);

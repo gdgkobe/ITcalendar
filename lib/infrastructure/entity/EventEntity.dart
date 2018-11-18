@@ -13,9 +13,9 @@ class EventEntity {
   @JsonKey(name: 'event_url', nullable: false)
   final String eventUrl;
   @JsonKey(name: 'started_at', nullable: true)
-  final String started_at;
+  final DateTime startedAt;
   @JsonKey(name: 'ended_at', nullable: true)
-  final String ended_at;
+  final DateTime endedAt;
   @JsonKey(name: 'lat', nullable: true)
   final double latitude;
   @JsonKey(name: 'lon', nullable: true)
@@ -23,7 +23,7 @@ class EventEntity {
 
 
   EventEntity(this.eventId, this.title, this.description, this.eventUrl,
-      this.started_at, this.ended_at, this.latitude, this.longitude);
+      this.startedAt, this.endedAt, this.latitude, this.longitude);
 
   factory EventEntity.fromJson(Map<String, dynamic> json) =>
       _$EventEntityFromJson(json);
