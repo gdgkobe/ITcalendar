@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void setup() async {
     FetchEventListUseCase fetchEventListUseCase = FetchEventListUseCase();
     eventList = await fetchEventListUseCase.execute();
-    var translatedEventList = Map.fromIterable(eventList.events,
+    Map<DateTime, int> translatedEventList = Map.fromIterable(eventList.events,
         key: (event) => event.startedAt,
         value: (event) => getEventCount(event));
 
