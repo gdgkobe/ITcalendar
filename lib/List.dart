@@ -27,7 +27,7 @@ class _LScreen extends State<ListScreen> {
     return Scaffold(
       appBar: AppBar(
 //        backgroundColor: AppConfig.kTheme.primaryColor,
-        title: Text("テスト"),
+        title: Text("ITカレンダーリスト"),
         elevation: 4.0,
       ),
       body: ListView.builder(
