@@ -21,7 +21,7 @@ class ConnpassDataSource {
     });
   }
 
-  Future<Event> fetchEvent(String eventId) {
+  Future<Event> fetchEvent(int eventId) {
     var client = http.Client();
     return client.get("${url}?event_id=$eventId").then((response) {
       final parsed = jsonDecode(response.body);
